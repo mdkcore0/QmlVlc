@@ -105,8 +105,10 @@ void RegisterQmlVlcMmPlayer()
 }
 #endif
 
-void RegisterQmlVlc()
+void QmlVlcPlugin::registerTypes(const char *uri)
 {
+    Q_UNUSED(uri);
+
     RegisterQmlVlcPlayer();
 
 #ifdef QMLVLC_QTMULTIMEDIA_ENABLE
