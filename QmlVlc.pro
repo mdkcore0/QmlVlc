@@ -11,8 +11,9 @@ CONFIG += plugin c++11
 DESTDIR = QmlVlc
 TARGET = qmlvlc
 
-QMAKE_POST_LINK = $$QMAKE_COPY $$PWD/qmldir $$OUT_PWD/$$DESTDIR
-
 target.path = $$[QT_INSTALL_QML]/QmlVlc
-target.files = qmldir
 INSTALLS += target
+
+qmldir.files += $$PWD/qmldir
+qmldir.path += $$target.path
+INSTALLS += qmldir
