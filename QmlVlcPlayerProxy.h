@@ -67,6 +67,8 @@ public:
     Q_PROPERTY( unsigned volume READ get_volume WRITE set_volume )
     Q_PROPERTY( bool fullscreen READ get_fullscreen WRITE set_fullscreen )
 
+    Q_PROPERTY( QString audioDevice READ get_audio_device WRITE set_audio_device )
+
     enum State {
         NothingSpecial = ::libvlc_NothingSpecial,
         Opening = ::libvlc_Opening,
@@ -129,6 +131,9 @@ public:
 
     Q_INVOKABLE void toggleFullscreen();
 
+    QString get_audio_device() { return m_audioDevice; };
+    void set_audio_device( const QString& audioDevice );
+
 Q_SIGNALS:
     /* async events from libvlc */
     void mediaPlayerMediaChanged();
@@ -164,6 +169,8 @@ private:
     QmlVlcSubtitle  m_subtitle;
     QmlVlcVideo     m_video;
     QmlVlcMediaDesc m_mediaDesc;
+
+    QString         m_audioDevice;
 
 protected:
     vlc::player& player() { assert( m_player ); return *m_player; }

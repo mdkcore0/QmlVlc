@@ -28,7 +28,7 @@
 QmlVlcPlayerProxy::QmlVlcPlayerProxy( vlc::player* player, QObject* parent /*= 0*/ )
     : QObject( parent ), m_audio( *player ), m_input( *player ),
       m_playlist( *player ),  m_subtitle( *player ), m_video( *player ),
-      m_mediaDesc( *player ), m_player( player )
+      m_mediaDesc( *player ), m_player( player ), m_audioDevice( "default" )
 {
     connect( this, SIGNAL( mediaPlayerPlaying() ), this, SIGNAL( playingChanged() ) );
     connect( this, SIGNAL( mediaPlayerPaused() ), this, SIGNAL( playingChanged() ) );
@@ -290,4 +290,13 @@ void QmlVlcPlayerProxy::set_fullscreen( bool /*fs*/ )
 void QmlVlcPlayerProxy::toggleFullscreen()
 {
     //FIXME!
+}
+
+void QmlVlcPlayerProxy::set_audio_device( const QString& audioDevice )
+{
+    if ( audioDevice == m_audioDevice )
+        return;
+
+    m_audioDevice = audioDevice;
+    player().audio().set_audio_device(audioDevice.toUtf8().data());
 }
